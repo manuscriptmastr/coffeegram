@@ -22,6 +22,7 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
-    "koa": "^2.0.0-alpha.8"
+    "koa": "^2.0.0-alpha.8",
+    "pug": "^2.0.0-beta11"
   }
 }
