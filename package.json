@@ -1,0 +1,27 @@
+{
+  "name": "coffeegram",
+  "version": "1.0.0",
+  "description": "Users can view, submit, and rate latte art!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js",
+    "dev": "nodemon main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuscriptmastr/coffeegram.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manuscriptmastr/coffeegram/issues"
+  },
+  "homepage": "https://github.com/manuscriptmastr/coffeegram#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "koa": "^2.0.0-alpha.8"
+  }
+}
