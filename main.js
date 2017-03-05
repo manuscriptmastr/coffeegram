@@ -1,10 +1,13 @@
 var Koa = require('koa');
 var app = new Koa();
+var pug = require('pug');
 
-var welcome = 'Hello World!';
+var homePage = pug.compileFile('templates/index.pug');
 
 app.use(ctx => {
-  ctx.body = welcome;
+  ctx.body = homePage({
+    url: ctx.url
+  });
 });
 
 app.listen(3000);
