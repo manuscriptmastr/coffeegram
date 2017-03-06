@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js",
-    "dev": "nodemon main.js"
+    "start": "node main.js --harmony-async-await",
+    "dev": "nodemon main.js --harmony-async-await"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "koa": "^2.0.0-alpha.8",
+    "koa-router": "^7.0.1",
     "pug": "^2.0.0-beta11"
   }
 }
