@@ -1,5 +1,5 @@
 var Router = require('koa-router');
-var router = new Router();
+var router = Router();
 
 var pug = require('pug');
 
