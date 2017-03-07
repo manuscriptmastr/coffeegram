@@ -2,8 +2,10 @@ doctype html
 html(lang="en")
   head
     title coffeegram
+    block scripts
+      link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css")
 
   body
     h1 coffeegram
 
-    p= url
+    block content

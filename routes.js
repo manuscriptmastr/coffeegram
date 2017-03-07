@@ -3,15 +3,20 @@ var router = Router();
 
 var pug = require('pug');
 
-var homePage = pug.compileFile('templates/index.pug');
-var aboutPage = pug.compileFile('templates/about.pug');
+var home = pug.compileFile('templates/index.pug');
+var about = pug.compileFile('templates/about.pug');
+var form = pug.compileFile('templates/new.pug');
 
 router.get('/', async ctx => {
-  ctx.body = homePage({});
+  ctx.body = home({});
 });
 
 router.get('/about', async ctx => {
-  ctx.body = aboutPage({});
+  ctx.body = about({});
+});
+
+router.get('/new', async ctx => {
+  ctx.body = form({});
 });
 
 module.exports = router;
