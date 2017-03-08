@@ -1,0 +1,21 @@
+extends layout.pug
+
+block content
+  h2 New coffeegram
+
+  form
+    div(class="form-group")
+      img(class="img-rounded img-responsive" src="http://static.wixstatic.com/media/981f90_aa9a5b60ce1a4d7d96c59a37cf6cedbe.jpg")
+    div(class="form-group")
+      label(for="description") Describe your coffeegram
+      textarea(class="form-control" placeholder="Latte ipsum dolor sit awhile")
+    div(class="form-group")
+      label(for="coffee-type") Coffee Type
+      select(class="form-control")
+        option Cappuccino
+        option Cortado
+        option Espresso
+        option Flat White
+        option Latte
+        option Macchiato
+    button(type="submit" class="btn btn-primary") Submit
