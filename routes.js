@@ -3,7 +3,7 @@ var router = Router();
 
 var pug = require('pug');
 
-var home = pug.compileFile('templates/index.pug');
+var home = pug.compileFile('templates/layout.pug');
 var about = pug.compileFile('templates/about.pug');
 var form = pug.compileFile('templates/new.pug');
 
