@@ -4,9 +4,19 @@ const pug = require('pug');
 
 let router = Router();
 
+var signup = pug.compileFile('templates/signup.pug');
+var login = pug.compileFile('templates/login.pug');
 var home = pug.compileFile('templates/home.pug');
-var about = pug.compileFile('templates/about.pug');
 var upload = pug.compileFile('templates/new.pug');
+var about = pug.compileFile('templates/about.pug');
+
+router.get('/signup', async ctx => {
+  ctx.body = signup({});
+});
+
+router.get('/login', async ctx => {
+  ctx.body = login({});
+});
 
 router.get('/', async ctx => {
   var coffeegrams = await Coffeegram.find();

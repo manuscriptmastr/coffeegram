@@ -1,10 +1,18 @@
 var MONGODB_URI = 'mongodb://localhost/coffeegram_dev';
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
 var Schema = mongoose.Schema;
+
+var UserSchema = new Schema({
+  name: String,
+  email: String,
+  username: String,
+  password: String
+})
 
 var CoffeegramSchema = new Schema({
   description: String,

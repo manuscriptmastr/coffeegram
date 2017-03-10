@@ -1,0 +1,16 @@
+extends layout.pug
+
+block content
+  h1 Welcome back, caffeine connoisseur
+
+  form(action="submit" method="post")
+    div(class="form-group")
+      label(for="email") Email address
+      input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" autofocus)
+    div(class="form-group")
+      label(for="password") Password
+      input(class="form-control" name="password" type="password" placeholder="yourpassword")
+    button(type="submit" class="btn btn-primary") Login
+
+  small
+    a(href='#') Forgot your password?

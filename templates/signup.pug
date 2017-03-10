@@ -1,0 +1,31 @@
+extends layout.pug
+
+block content
+  h1 Share your latte art with the world
+  h2
+    | Create an account or
+    = ' '
+    a(href='/login') login
+
+  form(action="submit" method="post")
+    div(class="form-group")
+      label(for="name") Name
+      input(class="form-control" name="name" placeholder="John Doe" autofocus)
+    div(class="form-group")
+      label(for="email") Email address
+      input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com")
+    div(class="form-group")
+      label(for="username") Username
+      input(class="form-control" name="username" placeholder="macchiato_man")
+    div(class="form-group")
+      label(for="password") Password
+      input(class="form-control" name="password" type="password" placeholder="yourpassword")
+    div(class="form-group")
+      label(for="password") Confirm your password
+      input(class="form-control" name="password-confirmation" type="password" placeholder="yourpassword")
+    button(type="submit" class="btn btn-primary") Submit
+
+  small
+    | Already have an account?
+    = ' '
+    a(href="/login") Login here.
