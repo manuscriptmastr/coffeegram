@@ -24,6 +24,7 @@
   "dependencies": {
     "koa": "^2.0.0-alpha.8",
     "koa-router": "^7.0.1",
+    "mongoose": "^4.8.6",
     "pug": "^2.0.0-beta11"
   }
 }
