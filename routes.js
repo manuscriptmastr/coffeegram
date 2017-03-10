@@ -1,17 +1,17 @@
-var Router = require('koa-router');
-var router = Router();
-var DB = require('./database');
-var db = DB();
+const Router = require('koa-router');
+const { Coffeegram } = require('./database');
+const pug = require('pug');
 
-var pug = require('pug');
+let router = Router();
 
 var home = pug.compileFile('templates/home.pug');
 var about = pug.compileFile('templates/about.pug');
 var upload = pug.compileFile('templates/new.pug');
 
 router.get('/', async ctx => {
+  var coffeegrams = await Coffeegram.find();
   ctx.body = home({
-    data: db
+    coffeegrams
   });
 });
 
@@ -24,7 +24,13 @@ router.get('/new', async ctx => {
 });
 
 router.post('/submit', async ctx => {
-  db.push(ctx.request.body);
+  var form = ctx.request.body;
+
+  Coffeegram.create({
+    description: form['description'],
+    coffeeType: form['coffee-type']
+  });
+
   ctx.redirect('/');
 });
 

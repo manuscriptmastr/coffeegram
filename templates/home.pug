@@ -4,8 +4,8 @@ block content
   h2 Your Feed
 
   ul
-    each val in data
+    each val in coffeegrams
       li
-        = val['description']
+        = val.description
         br
-        = val['coffee-type']
+        = val.coffeeType
