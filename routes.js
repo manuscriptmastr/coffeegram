@@ -1,8 +1,8 @@
 const Router = require('koa-router');
-let router = Router();
 const { Coffeegram } = require('./database');
-
 const pug = require('pug');
+
+let router = Router();
 
 var home = pug.compileFile('templates/home.pug');
 var about = pug.compileFile('templates/about.pug');
@@ -11,7 +11,7 @@ var upload = pug.compileFile('templates/new.pug');
 router.get('/', async ctx => {
   var coffeegrams = await Coffeegram.find();
   ctx.body = home({
-    coffeegrams: coffeegrams
+    coffeegrams
   });
 });
 
