@@ -6,6 +6,6 @@ block content
   ul
     each val in data
       li
-        | #{val['description']}
+        = val['description']
         br
-        | #{val['coffee-type']}
+        = val['coffee-type']
