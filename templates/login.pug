@@ -2,14 +2,18 @@ extends layout.pug
 
 block content
   h1 Welcome back, caffeine connoisseur
+  h2
+    | Login or
+    = ' '
+    a(href="/users/new") create a new account
 
-  form(action="submit" method="post")
+  form(action="/sessions" method="post")
     div(class="form-group")
       label(for="email") Email address
-      input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" autofocus)
+      input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" autofocus required)
     div(class="form-group")
       label(for="password") Password
-      input(class="form-control" name="password" type="password" placeholder="yourpassword")
+      input(class="form-control" name="password" type="password" placeholder="yourpassword" required)
     button(type="submit" class="btn btn-primary") Login
 
   small

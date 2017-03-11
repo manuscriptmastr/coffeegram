@@ -5,27 +5,27 @@ block content
   h2
     | Create an account or
     = ' '
-    a(href='/login') login
+    a(href='/sessions/new') login
 
-  form(action="submit" method="post")
+  form(action="/users" method="post")
     div(class="form-group")
       label(for="name") Name
-      input(class="form-control" name="name" placeholder="John Doe" autofocus)
+      input(class="form-control" name="name" placeholder="John Doe" pattern="[A-Za-z\s]+" autofocus required)
     div(class="form-group")
       label(for="email") Email address
-      input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com")
+      input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" required)
     div(class="form-group")
       label(for="username") Username
-      input(class="form-control" name="username" placeholder="macchiato_man")
+      input(class="form-control" name="username" placeholder="macchiato_man" required)
     div(class="form-group")
       label(for="password") Password
-      input(class="form-control" name="password" type="password" placeholder="yourpassword")
+      input(class="form-control" name="password" type="password" placeholder="yourpassword" required)
     div(class="form-group")
       label(for="password") Confirm your password
-      input(class="form-control" name="password-confirmation" type="password" placeholder="yourpassword")
+      input(class="form-control" name="password-confirmation" type="password" placeholder="yourpassword" required)
     button(type="submit" class="btn btn-primary") Submit
 
   small
     | Already have an account?
     = ' '
-    a(href="/login") Login here.
+    a(href="/sessions/new") Login here.

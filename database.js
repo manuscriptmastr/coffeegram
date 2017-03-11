@@ -12,7 +12,9 @@ var UserSchema = new Schema({
   email: String,
   username: String,
   password: String
-})
+});
+
+var User = mongoose.model('User', UserSchema);
 
 var CoffeegramSchema = new Schema({
   description: String,
@@ -22,5 +24,6 @@ var CoffeegramSchema = new Schema({
 var Coffeegram = mongoose.model('Coffeegram', CoffeegramSchema);
 
 module.exports = {
-  Coffeegram
+  Coffeegram,
+  User
 };
