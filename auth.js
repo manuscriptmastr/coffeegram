@@ -5,24 +5,33 @@ const pug = require('pug');
 
 let auth = Router();
 
-var authMsg = "You've been served by Auth";
-
 var signup = pug.compileFile('templates/signup.pug');
 var login = pug.compileFile('templates/login.pug');
 
 auth.get('/users/new', async ctx => {
   ctx.body = signup({});
-  console.log(authMsg);
 });
 
 auth.get('/sessions/new', async ctx => {
   ctx.body = login({});
-  console.log(authMsg);
 });
 
 auth.post('/sessions', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/sessions/new'
 }));
+
+auth.post('/users', async ctx => {
+  var { name, email, username, password } = ctx.request.body;
+
+  var user = await User.create({
+    name,
+    email,
+    username,
+    password
+  });
+  ctx.login(user);
+  ctx.redirect('/');
+});
 
 module.exports = auth;

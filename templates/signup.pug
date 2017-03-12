@@ -10,7 +10,7 @@ block content
   form(action="/users" method="post")
     div(class="form-group")
       label(for="name") Name
-      input(class="form-control" name="name" placeholder="John Doe" pattern="[A-Za-z\s]+" autofocus required)
+      input(class="form-control" name="name" placeholder="John Doe" pattern="[A-Za-z\\s]+" autofocus required)
     div(class="form-group")
       label(for="email") Email address
       input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" required)
