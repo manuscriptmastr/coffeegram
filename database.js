@@ -24,6 +24,7 @@ var CoffeegramSchema = new Schema({
 var Coffeegram = mongoose.model('Coffeegram', CoffeegramSchema);
 
 module.exports = {
+  MONGODB_URI,
   Coffeegram,
   User
 };

@@ -24,8 +24,13 @@
   "dependencies": {
     "bcrypt": "^1.0.2",
     "koa": "^2.0.0-alpha.8",
+    "koa-convert": "^1.2.0",
+    "koa-generic-session": "^1.11.5",
+    "koa-generic-session-mongo": "^0.3.1",
     "koa-router": "^7.0.1",
     "mongoose": "^4.8.6",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "pug": "^2.0.0-beta11"
   }
 }
