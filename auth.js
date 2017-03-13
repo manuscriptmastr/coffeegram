@@ -1,9 +1,12 @@
 const Router = require('koa-router');
 const { User } = require('./database');
 const passport = require('koa-passport');
+const bcrypt = require('bcrypt');
 const pug = require('pug');
 
 let auth = Router();
+
+const saltRounds = 10;
 
 var signup = pug.compileFile('templates/signup.pug');
 var login = pug.compileFile('templates/login.pug');
@@ -22,16 +25,21 @@ auth.post('/sessions', passport.authenticate('local', {
 }));
 
 auth.post('/users', async ctx => {
-  var { name, email, username, password } = ctx.request.body;
+  var { name, email, username, 'password': passwordFirst, 'password-confirmation': passwordConfirmation } = ctx.request.body;
+  if (passwordFirst!==passwordConfirmation) {
+    ctx.body = signup({error: "Make sure your passwords match"});
+  } else {
+    var hash = await bcrypt.hash(passwordFirst, saltRounds);
+    var user = await User.create({
+      name,
+      email,
+      username,
+      password: hash
+    });
+    ctx.login(user);
 
-  var user = await User.create({
-    name,
-    email,
-    username,
-    password
-  });
-  ctx.login(user);
-  ctx.redirect('/');
+    ctx.redirect('/');
+  }
 });
 
 module.exports = auth;
