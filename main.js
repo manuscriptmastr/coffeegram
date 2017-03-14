@@ -28,9 +28,7 @@ app.use(convert(
 
 passport.use(new Strategy({usernameField: 'email', passwordField: 'password'},
   async (email, password, cb) => {
-    console.log(email, password);
     var user = await User.findOne({email});
-    console.log(user);
     if (!user) {
       return cb(null, false);
     }
@@ -54,7 +52,6 @@ app.use(auth.routes());
 
 app.use(async (ctx, next) => {
   if (ctx.isAuthenticated()) {
-    console.log("Successfully logged in");
     await next();
   } else {
     ctx.redirect('/sessions/new');
