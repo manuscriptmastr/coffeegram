@@ -5,8 +5,8 @@ const pug = require('pug');
 let router = Router();
 
 var home = pug.compileFile('templates/home.pug');
-var about = pug.compileFile('templates/about.pug');
 var upload = pug.compileFile('templates/new.pug');
+var about = pug.compileFile('templates/about.pug');
 
 router.get('/', async ctx => {
   var coffeegrams = await Coffeegram.find();
@@ -19,11 +19,11 @@ router.get('/about', async ctx => {
   ctx.body = about({});
 });
 
-router.get('/new', async ctx => {
+router.get('/coffeegrams/new', async ctx => {
   ctx.body = upload({});
 });
 
-router.post('/submit', async ctx => {
+router.post('/coffeegrams', async ctx => {
   var form = ctx.request.body;
 
   Coffeegram.create({
