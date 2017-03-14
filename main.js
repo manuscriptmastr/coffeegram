@@ -4,6 +4,7 @@ const Strategy = require('passport-local').Strategy;
 const convert = require('koa-convert');
 const session = require('koa-generic-session');
 const MongoStore = require('koa-generic-session-mongo');
+const bcrypt = require('bcrypt');
 const router = require('./routes');
 const auth = require('./auth');
 const db = require('./database');
@@ -25,16 +26,18 @@ app.use(convert(
   })
 ));
 
-passport.use(new Strategy({usernameField: 'email'},
+passport.use(new Strategy({usernameField: 'email', passwordField: 'password'},
   async (email, password, cb) => {
+    console.log(email, password);
     var user = await User.findOne({email});
+    console.log(user);
     if (!user) {
       return cb(null, false);
     }
-    if (user.password !== password) {
-      return cb(null, false);
+    if (await bcrypt.compare(password, user.password)) {
+      return cb(null, user);
     }
-    return cb(null, user);
+    return cb(null, false);
   }
 ));
 

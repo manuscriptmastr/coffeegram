@@ -25,7 +25,13 @@ auth.post('/sessions', passport.authenticate('local', {
 }));
 
 auth.post('/users', async ctx => {
-  var { name, email, username, 'password': passwordFirst, 'password-confirmation': passwordConfirmation } = ctx.request.body;
+  var {
+    name,
+    email,
+    username,
+    'password': passwordFirst,
+    'password-confirmation': passwordConfirmation
+  } = ctx.request.body;
   if (passwordFirst!==passwordConfirmation) {
     ctx.body = signup({error: "Make sure your passwords match"});
   } else {
@@ -37,7 +43,6 @@ auth.post('/users', async ctx => {
       password: hash
     });
     ctx.login(user);
-
     ctx.redirect('/');
   }
 });
