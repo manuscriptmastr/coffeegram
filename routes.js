@@ -26,7 +26,7 @@ router.get('/coffeegrams/new', async ctx => {
 router.post('/coffeegrams', async ctx => {
   var form = ctx.request.body;
 
-  Coffeegram.create({
+  await Coffeegram.create({
     description: form['description'],
     coffeeType: form['coffee-type']
   });
