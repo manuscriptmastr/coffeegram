@@ -36,14 +36,26 @@ auth.post('/users', async ctx => {
     ctx.body = signup({error: "Make sure your passwords match"});
   } else {
     var hash = await bcrypt.hash(passwordFirst, saltRounds);
-    var user = await User.create({
-      name,
-      email,
-      username,
-      password: hash
-    });
-    ctx.login(user);
-    ctx.redirect('/');
+    var success = false;
+    try {
+      var user = await User.create({
+        name,
+        email,
+        username,
+        password: hash
+      });
+      success = true;
+    } catch (error) {
+      if (error.name === 'MongoError' && error.code === 11000) {
+        ctx.body = signup({error: "Your username or email has already been used"})
+      } else {
+        throw error;
+      }
+    }
+    if (success) {
+      ctx.login(user);
+      ctx.redirect('/');
+    }
   }
 });
 
