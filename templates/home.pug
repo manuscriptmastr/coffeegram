@@ -3,9 +3,12 @@ extends layout.pug
 block content
   h1 Your feed
 
-  ul
-    each val in coffeegrams
-      li
-        = val.description
-        br
-        = val.coffeeType
+  div.container
+    ul.list-inline.row
+      each val in coffeegrams
+        li(class="list-unstyled col-sm-4")
+          img(class="img-fluid rounded" src=val.image)
+          br
+          = val.description
+          br
+          = val.coffeeType

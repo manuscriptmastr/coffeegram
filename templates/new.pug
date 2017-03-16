@@ -3,9 +3,10 @@ extends layout.pug
 block content
   h1 New coffeegram
 
-  form(action="/coffeegrams" method="post")
+  form(action="/coffeegrams" method="post" enctype="multipart/form-data")
     div(class="form-group")
-      img(class="img-fluid rounded" src="https://s-media-cache-ak0.pinimg.com/736x/5b/4d/06/5b4d0627ef27dcb0b7e54d5c2887f2d1.jpg")
+      label(for="image") Upload your coffeegram
+      input(class="form-control" name="image" type="file")
     div(class="form-group")
       label(for="description") Describe your coffeegram
       textarea(class="form-control" name="description" placeholder="Latte ipsum dolor sit awhile" autofocus)
