@@ -1,8 +1,8 @@
 extends layout.pug
 
 block content
-  h1 All Coffeegrams
-
+  h1 #{user.name}'s Coffeegrams
+  
   div.container
     ul.list-inline.row
       each val in coffeegrams

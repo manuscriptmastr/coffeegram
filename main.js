@@ -4,19 +4,28 @@ const Strategy = require('passport-local').Strategy;
 const convert = require('koa-convert');
 const session = require('koa-generic-session');
 const MongoStore = require('koa-generic-session-mongo');
+const serve = require('koa-static');
+const mount = require('koa-mount');
 const bcrypt = require('bcrypt');
 const router = require('./routes');
 const auth = require('./auth');
 const db = require('./database');
 const { MONGODB_URI, User } = db;
 const secret = "3fhfivo'+_#@V',>"
-const bodyParser = require('koa-bodyparser');
+const bodyParser = require('koa-better-body');
 
 var app = new Koa();
 
 app.keys = [secret];
 
-app.use(bodyParser());
+app.use(mount('/uploads', serve('./uploads')));
+
+app.use(convert(bodyParser({
+  multipart: true,
+  fields: 'body',
+  uploadDir: './uploads',
+  keepExtensions: true
+})));
 
 app.use(convert(
   session({
