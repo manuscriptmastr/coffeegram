@@ -17,6 +17,7 @@ var UserSchema = new Schema({
 var User = mongoose.model('User', UserSchema);
 
 var CoffeegramSchema = new Schema({
+  userId: Schema.Types.ObjectId,
   image: String,
   description: String,
   coffeeType: String
