@@ -38,7 +38,7 @@ router.post('/coffeegrams', async ctx => {
   var form = ctx.request.body;
   await Coffeegram.create({
     userId: ctx.state.user.id,
-    image: ctx.request.files[0].path,
+    image: form.image[0].path,
     description: form['description'],
     coffeeType: form['coffee-type']
   });
