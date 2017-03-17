@@ -1,6 +1,8 @@
 extends layout.pug
 
 block content
+  img.img-fluid.rounded(src=`${helpers.gravatar(user.email)}`)
+  
   h1 #{user.name}'s Coffeegrams
   
   div.container
