@@ -55,7 +55,7 @@ passport.deserializeUser(async (id, cb) => {
   cb(null, user);
 });
 
-app.use(passport.initialize());
+app.use(passport.initialize({ userProperty: 'currentUser' }));
 app.use(passport.session());
 
 app.use(views(__dirname + '/templates', { extension: 'pug' }));

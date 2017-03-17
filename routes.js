@@ -15,7 +15,7 @@ router.get('/users/:username', async ctx => {
   var user = await User.findOne({ username: ctx.params.username });
   var coffeegrams = await Coffeegram.find({ userId: user.id });
   await ctx.render('usergrams', {
-    currentUser: ctx.state.user,
+    currentUser: ctx.state.currentUser,
     user,
     coffeegrams
   });
@@ -36,7 +36,7 @@ router.get('/coffeegrams/new', async ctx => {
 router.post('/coffeegrams', async ctx => {
   var form = ctx.request.body;
   await Coffeegram.create({
-    userId: ctx.state.user.id,
+    userId: ctx.state.currentUser.id,
     image: form.image[0].path,
     description: form['description'],
     coffeeType: form['coffee-type']
