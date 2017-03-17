@@ -1,17 +1,11 @@
 const Router = require('koa-router');
 const { User, Coffeegram } = require('./database');
-const pug = require('pug');
 
 let router = Router();
 
-var home = pug.compileFile('templates/home.pug');
-var usergrams = pug.compileFile('templates/usergrams.pug');
-var upload = pug.compileFile('templates/new.pug');
-var about = pug.compileFile('templates/about.pug');
-
 router.get('/', async ctx => {
   var coffeegrams = await Coffeegram.find();
-  ctx.body = home({
+  await ctx.render('home', {
     coffeegrams
   });
 });
@@ -19,25 +13,28 @@ router.get('/', async ctx => {
 router.get('/users/:username', async ctx => {
   var user = await User.findOne({ username: ctx.params.username });
   var coffeegrams = await Coffeegram.find({ userId: user.id });
-  ctx.body = usergrams({
-    currentUser: ctx.state.user,
+  await ctx.render('usergrams', {
     user,
     coffeegrams
   });
 });
 
 router.get('/about', async ctx => {
-  ctx.body = about({});
+  await ctx.render('about', {
+
+  });
 });
 
 router.get('/coffeegrams/new', async ctx => {
-  ctx.body = upload({});
+  await ctx.render('new', {
+
+  });
 });
 
 router.post('/coffeegrams', async ctx => {
   var form = ctx.request.body;
   await Coffeegram.create({
-    userId: ctx.state.user.id,
+    userId: ctx.state.currentUser.id,
     image: form.image[0].path,
     description: form['description'],
     coffeeType: form['coffee-type']

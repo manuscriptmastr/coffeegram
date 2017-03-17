@@ -15,7 +15,11 @@ html(lang="en")
         a(class="nav-link active" href="/coffeegrams/new") Upload
       li(class="nav-item")
         a(class="nav-link active" href="/about") About
-      li(class="nav-item")
-        a(class="nav-link active" href="/sessions/new") Login
+      if currentUser
+        li(class="nav-item")
+          a(class="nav-link active" href=`/users/${currentUser.username}`) #{currentUser.name}'s Account
+      else
+        li(class="nav-item")
+          a(class="nav-link active" href="/sessions/new") Login
 
     block content

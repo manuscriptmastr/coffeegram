@@ -7,6 +7,7 @@ const MongoStore = require('koa-generic-session-mongo');
 const serve = require('koa-static');
 const mount = require('koa-mount');
 const bcrypt = require('bcrypt');
+const views = require('koa-views');
 const router = require('./routes');
 const auth = require('./auth');
 const db = require('./database');
@@ -52,10 +53,12 @@ passport.serializeUser((user, cb) => cb(null, user.id));
 passport.deserializeUser(async (id, cb) => {
   var user = await User.findById(id);
   cb(null, user);
-})
+});
 
-app.use(passport.initialize());
+app.use(passport.initialize({ userProperty: 'currentUser' }));
 app.use(passport.session());
+
+app.use(views(__dirname + '/templates', { extension: 'pug' }));
 
 app.use(auth.routes());
 
