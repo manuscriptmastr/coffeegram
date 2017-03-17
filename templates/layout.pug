@@ -17,7 +17,7 @@ html(lang="en")
         a(class="nav-link active" href="/about") About
       if currentUser
         li(class="nav-item")
-          a(class="nav-link active" href=`/users/${currentUser.username}`) #{currentUser.name}'s Account
+          a(class="nav-link active" href=`/users/${currentUser.username}`) Hello, #{currentUser.name}
       else
         li(class="nav-item")
           a(class="nav-link active" href="/sessions/new") Login
