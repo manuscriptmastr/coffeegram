@@ -4,14 +4,9 @@ const pug = require('pug');
 
 let router = Router();
 
-var home = pug.compileFile('templates/home.pug');
-var usergrams = pug.compileFile('templates/usergrams.pug');
-var upload = pug.compileFile('templates/new.pug');
-var about = pug.compileFile('templates/about.pug');
-
 router.get('/', async ctx => {
   var coffeegrams = await Coffeegram.find();
-  ctx.body = home({
+  await ctx.render('home', {
     coffeegrams
   });
 });
@@ -19,7 +14,7 @@ router.get('/', async ctx => {
 router.get('/users/:username', async ctx => {
   var user = await User.findOne({ username: ctx.params.username });
   var coffeegrams = await Coffeegram.find({ userId: user.id });
-  ctx.body = usergrams({
+  await ctx.render('usergrams', {
     currentUser: ctx.state.user,
     user,
     coffeegrams
@@ -27,11 +22,15 @@ router.get('/users/:username', async ctx => {
 });
 
 router.get('/about', async ctx => {
-  ctx.body = about({});
+  await ctx.render('about', {
+
+  });
 });
 
 router.get('/coffeegrams/new', async ctx => {
-  ctx.body = upload({});
+  await ctx.render('new', {
+
+  });
 });
 
 router.post('/coffeegrams', async ctx => {

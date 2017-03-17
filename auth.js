@@ -8,15 +8,12 @@ let auth = Router();
 
 const saltRounds = 10;
 
-var signup = pug.compileFile('templates/signup.pug');
-var login = pug.compileFile('templates/login.pug');
-
 auth.get('/users/new', async ctx => {
-  ctx.body = signup({});
+  await ctx.render('signup', {});
 });
 
 auth.get('/sessions/new', async ctx => {
-  ctx.body = login({});
+  await ctx.render('login', {});
 });
 
 auth.post('/sessions', passport.authenticate('local', {
@@ -33,7 +30,7 @@ auth.post('/users', async ctx => {
     'password-confirmation': passwordConfirmation
   } = ctx.request.body;
   if (passwordFirst!==passwordConfirmation) {
-    ctx.body = signup({error: "Make sure your passwords match"});
+    await ctx.render('signup', { error: "Make sure your passwords match" });
   } else {
     var hash = await bcrypt.hash(passwordFirst, saltRounds);
     var success = false;
@@ -47,7 +44,7 @@ auth.post('/users', async ctx => {
       success = true;
     } catch (error) {
       if (error.name === 'MongoError' && error.code === 11000) {
-        ctx.body = signup({error: "Your username or email has already been used"})
+        await ctx.render('signup', { error: "Your username or email has already been used" });
       } else {
         throw error;
       }
