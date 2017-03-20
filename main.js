@@ -83,4 +83,11 @@ app.use(async (ctx, next) => {
 
 app.use(router.routes());
 
+app.use(async (ctx) => {
+  ctx.status = 404;
+  await ctx.render('404', {
+
+  });
+});
+
 app.listen(3000);
