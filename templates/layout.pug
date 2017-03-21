@@ -27,6 +27,6 @@ html(lang="en")
     if flash.loggedin
       div.alert.alert-success(role="alert") #{flash.loggedin}
     if error
-      div.alert.alert-warning(role="alert") #{error}
+      div.alert.alert-danger(role="alert") #{error}
 
     block content
