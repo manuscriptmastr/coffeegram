@@ -6,7 +6,7 @@ block content
   form(action="/coffeegrams" method="post" enctype="multipart/form-data")
     div(class="form-group")
       label(for="image") Upload your coffeegram
-      input(class="form-control" name="image" type="file")
+      input(class="form-control" name="image" type="file" required)
     div(class="form-group")
       label(for="description") Describe your coffeegram
       textarea(class="form-control" name="description" placeholder="Latte ipsum dolor sit awhile" autofocus)
