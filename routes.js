@@ -46,7 +46,7 @@ router.post('/coffeegrams', async ctx => {
 
   ctx.request.flash('success', "Your new Coffeegram is up!");
 
-  ctx.redirect('/');
+  ctx.redirect(`/users/${ctx.state.currentUser.username}`);
 });
 
 module.exports = router;

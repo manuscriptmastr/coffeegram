@@ -57,21 +57,6 @@ passport.deserializeUser(async (id, cb) => {
   cb(null, user);
 });
 
-app.use(passport.initialize({ userProperty: 'currentUser' }));
-app.use(passport.session());
-
-app.use(views(__dirname + '/templates', {
-  extension: 'pug',
-  options: {
-    helpers: {
-      gravatar: email => {
-        var hash = crypto.createHash('md5').update(email).digest('hex');
-        return `https://www.gravatar.com/avatar/${hash}.jpg?s=300`;
-      }
-    }
-  }
-}));
-
 app.use(async (ctx, next) => {
   if (!ctx.session.flash) {
     ctx.session.flash = {};
@@ -89,6 +74,21 @@ app.use(async (ctx, next) => {
     ctx.session.flash = ctx.flash;
   }
 });
+
+app.use(passport.initialize({ userProperty: 'currentUser' }));
+app.use(passport.session());
+
+app.use(views(__dirname + '/templates', {
+  extension: 'pug',
+  options: {
+    helpers: {
+      gravatar: email => {
+        var hash = crypto.createHash('md5').update(email).digest('hex');
+        return `https://www.gravatar.com/avatar/${hash}.jpg?s=300`;
+      }
+    }
+  }
+}));
 
 app.use(async (ctx, next) => {
   try {

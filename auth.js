@@ -51,6 +51,7 @@ auth.post('/users', async ctx => {
     }
     if (success) {
       ctx.login(user);
+      ctx.request.flash('loggedin', "Welcome to Coffeegrams, " + user.name);
       ctx.redirect('/');
     }
   }
