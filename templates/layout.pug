@@ -21,5 +21,9 @@ html(lang="en")
       else
         li(class="nav-item")
           a(class="nav-link active" href="/sessions/new") Login
-
+          
+    if flash.success
+      div.alert.alert-success(role="alert") #{flash.success}
+    if flash.error
+      
     block content
