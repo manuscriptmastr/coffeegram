@@ -1,6 +1,6 @@
-var MONGODB_URI = 'mongodb://localhost/coffeegram_dev';
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+const MONGODB_URI = process.env.MONGODB_URI || process.env.OPENSHIFT_MONGODB_DB_URL;
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);

@@ -1,3 +1,10 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+var PORT = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var IP = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+
 const Koa = require('koa');
 const passport = require('koa-passport');
 const Strategy = require('passport-local').Strategy;
@@ -13,7 +20,7 @@ const router = require('./routes');
 const auth = require('./auth');
 const db = require('./database');
 const { MONGODB_URI, User } = db;
-const secret = "3fhfivo'+_#@V',>"
+const secret = process.env.SESSION_SECRET;
 const bodyParser = require('koa-better-body');
 const handleNotFound = require('./404-middleware');
 const { NotFound } = require('./error');
@@ -94,4 +101,4 @@ app.use(async (ctx) => {
   throw new NotFound();
 });
 
-app.listen(3000);
+app.listen(PORT, IP);
