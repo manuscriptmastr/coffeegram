@@ -15,6 +15,7 @@ const db = require('./database');
 const { MONGODB_URI, User } = db;
 const secret = "3fhfivo'+_#@V',>"
 const bodyParser = require('koa-better-body');
+const { NotFound } = require('./error');
 
 var app = new Koa();
 
@@ -71,6 +72,19 @@ app.use(views(__dirname + '/templates', {
   }
 }));
 
+app.use(async (ctx, next) => {
+  try {
+    await next()
+  } catch (e) {
+    if (e instanceof NotFound) {
+      ctx.status = 404;
+      await ctx.render('404', {});
+    } else {
+      throw e;
+    }
+  }
+});
+
 app.use(auth.routes());
 
 app.use(async (ctx, next) => {
@@ -82,5 +96,9 @@ app.use(async (ctx, next) => {
 });
 
 app.use(router.routes());
+
+app.use(async (ctx) => {
+  throw new NotFound();
+});
 
 app.listen(3000);

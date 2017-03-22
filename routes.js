@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const { User, Coffeegram } = require('./database');
+const { NotFound } = require('./error');
 
 let router = Router();
 
@@ -12,6 +13,9 @@ router.get('/', async ctx => {
 
 router.get('/users/:username', async ctx => {
   var user = await User.findOne({ username: ctx.params.username });
+  if (!user) {
+    throw new NotFound();
+  }
   var coffeegrams = await Coffeegram.find({ userId: user.id });
   await ctx.render('usergrams', {
     user,
