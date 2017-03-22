@@ -15,7 +15,9 @@ const db = require('./database');
 const { MONGODB_URI, User } = db;
 const secret = "3fhfivo'+_#@V',>"
 const bodyParser = require('koa-better-body');
+const handleNotFound = require('./404-middleware');
 const { NotFound } = require('./error');
+const flash = require('./flash');
 
 var app = new Koa();
 
@@ -57,23 +59,7 @@ passport.deserializeUser(async (id, cb) => {
   cb(null, user);
 });
 
-app.use(async (ctx, next) => {
-  if (!ctx.session.flash) {
-    ctx.session.flash = {};
-  }
-  ctx.request.flash = (type, msg) => {
-    ctx.session.flash[type] = msg;
-  }
-  ctx.flash = ctx.session.flash;
-  ctx.session.flash = {};
-  ctx.state.flash = ctx.flash;
-
-  await next();
-
-  if (ctx.status === 302 && ctx.session && !(ctx.session.flash)) {
-    ctx.session.flash = ctx.flash;
-  }
-});
+app.use(flash);
 
 app.use(passport.initialize({ userProperty: 'currentUser' }));
 app.use(passport.session());
@@ -90,18 +76,7 @@ app.use(views(__dirname + '/templates', {
   }
 }));
 
-app.use(async (ctx, next) => {
-  try {
-    await next()
-  } catch (e) {
-    if (e instanceof NotFound) {
-      ctx.status = 404;
-      await ctx.render('404', {});
-    } else {
-      throw e;
-    }
-  }
-});
+app.use(handleNotFound);
 
 app.use(auth.routes());
 
