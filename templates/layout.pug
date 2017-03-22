@@ -21,5 +21,12 @@ html(lang="en")
       else
         li(class="nav-item")
           a(class="nav-link active" href="/sessions/new") Login
+          
+    if flash.success
+      div.alert.alert-success(role="alert") #{flash.success}
+    if flash.error
+      div.alert.alert-danger(role="alert") #{flash.error}
+    if error
+      div.alert.alert-danger(role="alert") #{error}
 
     block content
