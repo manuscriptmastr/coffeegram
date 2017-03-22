@@ -23,7 +23,7 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
-    "bcrypt": "^1.0.2",
+    "bcryptjs": "^2.4.3",
     "koa": "^2.0.0-alpha.8",
     "koa-convert": "^1.2.0",
     "koa-generic-session": "^1.11.5",

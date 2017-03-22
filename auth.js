@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 const { User } = require('./database');
 const passport = require('koa-passport');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const pug = require('pug');
 
 let auth = Router();
