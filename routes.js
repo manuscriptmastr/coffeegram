@@ -1,6 +1,7 @@
 const Router = require('koa-router');
 const { User, Coffeegram } = require('./database');
 const { NotFound } = require('./error');
+const path = require('path');
 
 let router = Router();
 
@@ -39,10 +40,12 @@ router.post('/coffeegrams', async ctx => {
   var form = ctx.request.body;
   await Coffeegram.create({
     userId: ctx.state.currentUser.id,
-    image: form.image[0].path,
+    image: path.basename(form.image[0].path),
     description: form['description'],
     coffeeType: form['coffee-type']
   });
+
+  console.log(form.image[0]);
 
   ctx.request.flash('success', "Your new Coffeegram is up!");
 
