@@ -1,4 +1,6 @@
-if (process.env.NODE_ENV !== 'production') {
+const PRODUCTION = process.env.NODE_ENV === 'production';
+
+if (!PRODUCTION) {
   require('dotenv').config();
 }
 
@@ -20,6 +22,7 @@ const crypto = require('crypto');
 const router = require('./routes');
 const auth = require('./auth');
 const db = require('./database');
+const enforceHttps = require('koa-sslify');
 const { MONGODB_URI, User } = db;
 const secret = process.env.SESSION_SECRET;
 const bodyParser = require('koa-better-body');
@@ -28,6 +31,12 @@ const { NotFound } = require('./error');
 const flash = require('./flash');
 
 var app = new Koa();
+
+if (PRODUCTION) {
+  app.use(convert(enforceHttps({
+    trustProtoHeader: true
+  })))
+}
 
 app.keys = [secret];
 
