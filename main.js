@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 var PORT = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var IP = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var UPLOAD_DIR = process.env.OPENSHIFT_DATA_DIR || './uploads';
 
 const Koa = require('koa');
 const passport = require('koa-passport');
@@ -30,12 +31,12 @@ var app = new Koa();
 
 app.keys = [secret];
 
-app.use(mount('/uploads', serve('./uploads')));
+app.use(mount('/uploads', serve(UPLOAD_DIR)));
 
 app.use(convert(bodyParser({
   multipart: true,
   fields: 'body',
-  uploadDir: './uploads',
+  uploadDir: UPLOAD_DIR,
   keepExtensions: true
 })));
 
