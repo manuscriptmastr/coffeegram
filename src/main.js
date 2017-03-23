@@ -88,7 +88,7 @@ app.use(flash);
 app.use(passport.initialize({ userProperty: 'currentUser' }));
 app.use(passport.session());
 
-app.use(views(__dirname + '/templates', {
+app.use(views(path.resolve(__dirname, '../templates'), {
   extension: 'pug',
   options: {
     helpers: {
