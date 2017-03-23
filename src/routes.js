@@ -45,8 +45,6 @@ router.post('/coffeegrams', async ctx => {
     coffeeType: form['coffee-type']
   });
 
-  console.log(form.image[0]);
-
   ctx.request.flash('success', "Your new Coffeegram is up!");
 
   ctx.redirect(`/users/${ctx.state.currentUser.username}`);
