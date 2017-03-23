@@ -4,9 +4,11 @@ if (!PRODUCTION) {
   require('dotenv').config();
 }
 
+var path = require('path');
+
 var PORT = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 var IP = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var UPLOAD_DIR = process.env.OPENSHIFT_DATA_DIR || './uploads';
+var UPLOAD_DIR = process.env.OPENSHIFT_DATA_DIR || path.resolve(__dirname, '../uploads');
 
 const Koa = require('koa');
 const passport = require('koa-passport');
@@ -25,6 +27,7 @@ const db = require('./database');
 const enforceHttps = require('koa-sslify');
 const { MONGODB_URI, User } = db;
 const secret = process.env.SESSION_SECRET;
+const formidable = require('formidable');
 const bodyParser = require('koa-better-body');
 const handleNotFound = require('./404-middleware');
 const { NotFound } = require('./error');
@@ -40,13 +43,17 @@ if (PRODUCTION) {
 
 app.keys = [secret];
 
+var form = new formidable.IncomingForm({
+  uploadDir: UPLOAD_DIR,
+  keepExtensions: true
+});
+
 app.use(mount('/uploads', serve(UPLOAD_DIR)));
 
 app.use(convert(bodyParser({
   multipart: true,
   fields: 'body',
-  uploadDir: UPLOAD_DIR,
-  keepExtensions: true
+  IncomingForm: form
 })));
 
 app.use(convert(
