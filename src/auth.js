@@ -3,8 +3,8 @@ const { User } = require('./database');
 const passport = require('koa-passport');
 const bcrypt = require('bcryptjs');
 const pug = require('pug');
-const { trim, clean, isBlank } = require('underscore.string');
-const { isEmail } = require('validator');
+const { trim, clean } = require('underscore.string');
+const validate = require('./validation');
 
 let auth = Router();
 
@@ -31,22 +31,24 @@ auth.post('/users', async ctx => {
     'password': passwordFirst,
     'password-confirmation': passwordConfirmation
   } = ctx.request.body;
-  if (isBlank(name) || isBlank(email) || isBlank(username) || isBlank(passwordFirst) || isBlank(passwordConfirmation)) {
-    return await ctx.render('signup', { error: "One or more fields is empty" });
-  }
-  if (passwordFirst!==passwordConfirmation) {
-    return await ctx.render('signup', { error: "Make sure your passwords match" });
-  }
+
+  var successful = true;
 
   name = clean(name);
   email = trim(email);
   username = trim(username);
 
-  if (!(/^\w+$/).test(username)) {
-    return await ctx.render('signup', { error: "Your username should have only letters, numbers, and underscores" });
+  var userParams = {
+    name,
+    email,
+    username,
+    passwordFirst,
+    passwordConfirmation
   }
-  if (!isEmail(email)) {
-    return await ctx.render('signup', { error: "The email address is not valid" });
+
+  var errors = validate(userParams);
+  if (errors.length) {
+    return await ctx.render('signup', ({errors}));
   }
 
   var hash = await bcrypt.hash(passwordFirst, saltRounds);

@@ -28,5 +28,8 @@ html(lang="en")
       div.alert.alert-danger(role="alert") #{flash.error}
     if error
       div.alert.alert-danger(role="alert") #{error}
+    if errors
+      each error in errors
+        div.alert.alert-danger(role="alert") #{error.message}
 
     block content
