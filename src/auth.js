@@ -32,8 +32,6 @@ auth.post('/users', async ctx => {
     'password-confirmation': passwordConfirmation
   } = ctx.request.body;
 
-  var successful = true;
-
   name = clean(name);
   email = trim(email);
   username = trim(username);
