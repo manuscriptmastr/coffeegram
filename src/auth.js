@@ -28,8 +28,8 @@ auth.post('/users', async ctx => {
     name,
     email,
     username,
-    'password': passwordFirst,
-    'password-confirmation': passwordConfirmation
+    passwordFirst,
+    passwordConfirmation
   } = ctx.request.body;
 
   name = clean(name);

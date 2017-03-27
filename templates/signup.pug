@@ -1,4 +1,11 @@
 extends layout.pug
+  
+mixin form-field(field, title, errors)
+  .form-group
+    label(for=field) #{title}
+    block
+    if errors && errors[field]
+      div.form-control-feedback #{errors[field]}
 
 block content
   h1 Share your latte art with the world
@@ -9,35 +16,20 @@ block content
 
   form(action="/users" method="post")
 
-    div(class="form-group")
-      label(for="name") Name
+    +form-field('name', 'Name', errors)
       input(class="form-control" name="name" placeholder="John Doe" pattern="[A-Za-z\\s]+" autofocus required)
-      if errors && errors.name
-        div.form-control-feedback #{errors.name}
 
-    div(class="form-group")
-      label(for="email") Email address
+    +form-field('email', 'Email', errors)
       input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" required)
-      if errors && errors.email
-        div.form-control-feedback #{errors.email}
 
-    div(class="form-group")
-      label(for="username") Username
+    +form-field('username', 'Username', errors)
       input(class="form-control" name="username" placeholder="macchiato_man" pattern="\\w+" required)
-      if errors && errors.username
-        div.form-control-feedback #{errors.username}
 
-    div(class="form-group")
-      label(for="password") Password
-      input(class="form-control" name="password" type="password" placeholder="yourpassword" required)
-      if errors && errors.passwordFirst
-        div.form-control-feedback #{errors.passwordFirst}
+    +form-field('passwordFirst', 'Password', errors)
+      input(class="form-control" name="passwordFirst" type="password" placeholder="yourpassword" required)
 
-    div(class="form-group")
-      label(for="password") Password confirmation
-      input(class="form-control" name="password-confirmation" type="password" placeholder="yourpassword" required)
-      if errors && errors.passwordConfirmation
-        div.form-control-feedback #{errors.passwordConfirmation}
+    +form-field('passwordConfirmation', 'Password confirmation', errors)
+      input(class="form-control" name="passwordConfirmation" type="password" placeholder="yourpassword" required)
 
     button(type="submit" class="btn btn-primary") Submit
 
