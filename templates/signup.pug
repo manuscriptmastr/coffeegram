@@ -1,4 +1,12 @@
 extends layout.pug
+  
+mixin form-field(field, title, errors)
+  - var error = errors && errors[field]
+  .form-group(class=(error ? 'has-danger' : ''))
+    label.form-control-label(for=field) #{title}
+    block
+    if error
+      div.form-control-feedback #{error}
 
 block content
   h1 Share your latte art with the world
@@ -8,21 +16,22 @@ block content
     a(href='/sessions/new') login
 
   form(action="/users" method="post")
-    div(class="form-group")
-      label(for="name") Name
+
+    +form-field('name', 'Name', errors)
       input(class="form-control" name="name" placeholder="John Doe" pattern="[A-Za-z\\s]+" autofocus required)
-    div(class="form-group")
-      label(for="email") Email address
+
+    +form-field('email', 'Email', errors)
       input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" required)
-    div(class="form-group")
-      label(for="username") Username
+
+    +form-field('username', 'Username', errors)
       input(class="form-control" name="username" placeholder="macchiato_man" pattern="\\w+" required)
-    div(class="form-group")
-      label(for="password") Password
-      input(class="form-control" name="password" type="password" placeholder="yourpassword" required)
-    div(class="form-group")
-      label(for="password") Confirm your password
-      input(class="form-control" name="password-confirmation" type="password" placeholder="yourpassword" required)
+
+    +form-field('passwordFirst', 'Password', errors)
+      input(class="form-control" name="passwordFirst" type="password" placeholder="yourpassword" required)
+
+    +form-field('passwordConfirmation', 'Password confirmation', errors)
+      input(class="form-control" name="passwordConfirmation" type="password" placeholder="yourpassword" required)
+
     button(type="submit" class="btn btn-primary") Submit
 
   small

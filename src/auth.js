@@ -28,8 +28,8 @@ auth.post('/users', async ctx => {
     name,
     email,
     username,
-    'password': passwordFirst,
-    'password-confirmation': passwordConfirmation
+    passwordFirst,
+    passwordConfirmation
   } = ctx.request.body;
 
   name = clean(name);
@@ -45,8 +45,9 @@ auth.post('/users', async ctx => {
   }
 
   var errors = validate(userParams);
-  if (errors.length) {
-    return await ctx.render('signup', ({errors}));
+
+  if (Object.keys(errors).length) {
+    return await ctx.render('signup', ({ errors }));
   }
 
   var hash = await bcrypt.hash(passwordFirst, saltRounds);
