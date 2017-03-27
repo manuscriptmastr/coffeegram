@@ -8,21 +8,37 @@ block content
     a(href='/sessions/new') login
 
   form(action="/users" method="post")
+
     div(class="form-group")
       label(for="name") Name
       input(class="form-control" name="name" placeholder="John Doe" pattern="[A-Za-z\\s]+" autofocus required)
+      if errors && errors.name
+        div.form-control-feedback #{errors.name}
+
     div(class="form-group")
       label(for="email") Email address
       input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" required)
+      if errors && errors.email
+        div.form-control-feedback #{errors.email}
+
     div(class="form-group")
       label(for="username") Username
       input(class="form-control" name="username" placeholder="macchiato_man" pattern="\\w+" required)
+      if errors && errors.username
+        div.form-control-feedback #{errors.username}
+
     div(class="form-group")
       label(for="password") Password
       input(class="form-control" name="password" type="password" placeholder="yourpassword" required)
+      if errors && errors.passwordFirst
+        div.form-control-feedback #{errors.passwordFirst}
+
     div(class="form-group")
-      label(for="password") Confirm your password
+      label(for="password") Password confirmation
       input(class="form-control" name="password-confirmation" type="password" placeholder="yourpassword" required)
+      if errors && errors.passwordConfirmation
+        div.form-control-feedback #{errors.passwordConfirmation}
+
     button(type="submit" class="btn btn-primary") Submit
 
   small
