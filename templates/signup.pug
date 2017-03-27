@@ -1,11 +1,12 @@
 extends layout.pug
   
 mixin form-field(field, title, errors)
-  .form-group
-    label(for=field) #{title}
+  - var error = errors && errors[field]
+  .form-group(class=(error ? 'has-danger' : ''))
+    label.form-control-label(for=field) #{title}
     block
-    if errors && errors[field]
-      div.form-control-feedback #{errors[field]}
+    if error
+      div.form-control-feedback #{error}
 
 block content
   h1 Share your latte art with the world
