@@ -6,7 +6,7 @@ const path = require('path');
 let router = Router();
 
 router.get('/', async ctx => {
-  var coffeegrams = await Coffeegram.find();
+  var coffeegrams = await Coffeegram.find({}).sort({ createdAt: 'desc' });
   await ctx.render('home', {
     coffeegrams
   });
@@ -17,7 +17,7 @@ router.get('/users/:username', async ctx => {
   if (!user) {
     throw new NotFound();
   }
-  var coffeegrams = await Coffeegram.find({ userId: user.id });
+  var coffeegrams = await Coffeegram.find({ userId: user.id }).sort({ createdAt: 'desc' });
   await ctx.render('usergrams', {
     user,
     coffeegrams
