@@ -12,7 +12,7 @@ var UserSchema = new Schema({
   email: { type: String, unique: true },
   username: { type: String, unique: true },
   password: String
-});
+}, { timestamps: true });
 
 var User = mongoose.model('User', UserSchema);
 
@@ -20,9 +20,8 @@ var CoffeegramSchema = new Schema({
   userId: Schema.Types.ObjectId,
   image: String,
   description: String,
-  coffeeType: String,
-  timestamp: Number
-});
+  coffeeType: String
+}, { timestamps: true });
 
 var Coffeegram = mongoose.model('Coffeegram', CoffeegramSchema);
 

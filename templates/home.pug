@@ -3,14 +3,4 @@ extends layout.pug
 block content
   h1 All Coffeegrams
 
-  div.container
-    ul.list-inline.row
-      each val in coffeegrams
-        li.list-unstyled.col-sm-4
-          img.img-fluid.rounded(src=`/uploads/${val.image}`)
-          br
-          = val.description
-          br
-          = val.coffeeType
-          br
-          = val.timestamp
+  include feed.pug
