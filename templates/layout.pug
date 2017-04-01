@@ -10,16 +10,16 @@ html(lang="en")
 
     div.container.px-0.mb-4.mt-4
       ul.nav.d-flex.flex-row.justify-content-left
-        li(class="nav-item nav-pills")
-          a(class="nav-link active" href="/") Coffeegram
-        li(class="nav-item")
-          a(class="nav-link active" href="/coffeegrams/new") Upload
+        li.nav-item.nav-pills
+          a.nav-link.active(href="/") Coffeegram
+        li.nav-item
+          a.nav-link.active(href="/coffeegrams/new") Upload
         if currentUser
           li.nav-item.nav-pills.ml-auto
-            a(class="nav-link active" href=`/users/${currentUser.username}`) Hello, #{currentUser.name}
+            a.nav-link.active(href=`/users/${currentUser.username}`) Hello, #{currentUser.name}
         else
           li.nav-item.nav-pills.ml-auto
-            a(class="nav-link active" href="/sessions/new") Login
+            a.nav-link.active(href="/sessions/new") Login
             
       if flash.success
         div.alert.alert-success(role="alert") #{flash.success}
