@@ -45,16 +45,20 @@ router.post('/coffeegrams', async ctx => {
   ctx.redirect(`/users/${ctx.state.currentUser.username}`);
 });
 
-router.post('/users/:username/bio', async ctx => {
+router.post('/users/:id', async ctx => {
   var { bio } = ctx.request.body;
+  if (ctx.params.id !== ctx.state.currentUser.id) {
+    ctx.request.flash('error', 'You\'re not allowed to edit someone else\'s profile');
+    return ctx.redirect('back');
+  }
   if (isBlank(bio)) {
     ctx.request.flash('error', 'Your bio looks empty!');
     return ctx.redirect('back');
   }
-  var id = ctx.state.currentUser.id;
+  var id = ctx.params.id;
   clean(bio);
-  await User.findByIdAndUpdate({ _id: id }, { $set: { bio }});
-  ctx.redirect(`/users/${ctx.state.currentUser.username}`);
+  user = await User.findByIdAndUpdate({ _id: id }, { $set: { bio }});
+  ctx.redirect(`/users/${user.username}`);
 });
 
 module.exports = router;
