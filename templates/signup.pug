@@ -9,32 +9,34 @@ mixin form-field(field, title, errors)
       div.form-control-feedback #{error}
 
 block content
-  h1 Share your latte art with the world
-  h2
-    | Create an account or
-    = ' '
-    a(href='/sessions/new') login
+  div.text-center
+    h1 Share your latte art with the world
+    h2.lead
+      | Create an account or
+      = ' '
+      a(href='/sessions/new') login
 
-  form(action="/users" method="post")
+  div.container.p-0.mb-5
+    form(action="/users" method="post")
 
-    +form-field('name', 'Name', errors)
-      input(class="form-control" name="name" placeholder="John Doe" pattern="[A-Za-z\\s]+" autofocus required)
+      +form-field('name', 'Name', errors)
+        input(class="form-control" name="name" placeholder="John Doe" pattern="[A-Za-z\\s]+" autofocus required)
 
-    +form-field('email', 'Email', errors)
-      input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" required)
+      +form-field('email', 'Email', errors)
+        input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" required)
 
-    +form-field('username', 'Username', errors)
-      input(class="form-control" name="username" placeholder="macchiato_man" pattern="\\w+" required)
+      +form-field('username', 'Username', errors)
+        input(class="form-control" name="username" placeholder="macchiato_man" pattern="\\w+" required)
 
-    +form-field('passwordFirst', 'Password', errors)
-      input(class="form-control" name="passwordFirst" type="password" placeholder="yourpassword" required)
+      +form-field('passwordFirst', 'Password', errors)
+        input(class="form-control" name="passwordFirst" type="password" placeholder="yourpassword" required)
 
-    +form-field('passwordConfirmation', 'Password confirmation', errors)
-      input(class="form-control" name="passwordConfirmation" type="password" placeholder="yourpassword" required)
+      +form-field('passwordConfirmation', 'Password confirmation', errors)
+        input(class="form-control" name="passwordConfirmation" type="password" placeholder="yourpassword" required)
 
-    button(type="submit" class="btn btn-primary") Submit
+      button(type="submit" class="btn btn-primary") Submit
 
-  small
-    | Already have an account?
-    = ' '
-    a(href="/sessions/new") Login here.
+    small
+      | Already have an account?
+      = ' '
+      a(href="/sessions/new") Login here.

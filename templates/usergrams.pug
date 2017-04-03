@@ -2,15 +2,15 @@ extends layout.pug
 
 block content
 
-  div.container.d-flex.flex-row.align-items-center.px-0.mb-4
+  div.container.d-flex.flex-row.align-items-center.px-0.mb-5
     div.col-3.pl-0
       img.img-fluid.rounded-circle(src=`${helpers.gravatar(user.email)}`)
-    div.col-9.pr-0
+    div.col-9.pr-0.text-center
       ul.list-unstyled.mb-0
         li
           h1 #{user.name} | #{user.username}
         li
-          h3 Lover of coffee, composing, and coding.
+          h3.lead Lover of coffee, composing, and coding.
         li
           small Member since #{user.createdAt}
 

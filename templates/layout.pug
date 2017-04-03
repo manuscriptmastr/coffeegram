@@ -8,7 +8,7 @@ html(lang="en")
 
   body.container
 
-    div.container.px-0.mb-4.mt-4
+    div.container.px-0.my-5
       ul.nav.d-flex.flex-row.justify-content-left
         li.nav-item.nav-pills
           a.nav-link.active(href="/") Coffeegram
@@ -29,3 +29,9 @@ html(lang="en")
         div.alert.alert-danger(role="alert") #{error}
 
     block content
+
+    div.container.px-0.mb-5
+      div.bg-primary.text-white.rounded.p-3.text-center
+        h4 Caffeinate your Slack channel with CoffeeBot!
+        p.m-0.lead
+          a.text-white(href="#") Download the code
