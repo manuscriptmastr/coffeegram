@@ -14,7 +14,7 @@ block content
             h3.lead #{user.bio}
         else if currentUser.id === user.id
           li
-            form(action=`/users/${currentUser.id}` method="post")
+            form(action=`/users/${user.username}` method="post")
               div(class="form-group")
                 input(class="form-control" type= "text" name="bio" placeholder="Why don't you introduce yourself quickly?" autofocus)
               button(type="submit" class="btn btn-primary") Post your bio
