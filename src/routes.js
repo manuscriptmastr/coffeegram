@@ -2,6 +2,7 @@ const Router = require('koa-router');
 const { User, Coffeegram } = require('./database');
 const { NotFound } = require('./error');
 const path = require('path');
+const { clean, isBlank } = require('underscore.string');
 
 let router = Router();
 
@@ -41,6 +42,18 @@ router.post('/coffeegrams', async ctx => {
 
   ctx.request.flash('success', "Your new Coffeegram is up!");
 
+  ctx.redirect(`/users/${ctx.state.currentUser.username}`);
+});
+
+router.post('/users/:username/bio', async ctx => {
+  var { bio } = ctx.request.body;
+  if (isBlank(bio)) {
+    ctx.request.flash('error', 'Your bio looks empty!');
+    return ctx.redirect('back');
+  }
+  var id = ctx.state.currentUser.id;
+  clean(bio);
+  await User.findByIdAndUpdate({ _id: id }, { $set: { bio }});
   ctx.redirect(`/users/${ctx.state.currentUser.username}`);
 });
 
