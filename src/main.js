@@ -20,6 +20,7 @@ const serve = require('koa-static');
 const mount = require('koa-mount');
 const bcrypt = require('bcryptjs');
 const views = require('koa-views');
+const moment = require('moment');
 const crypto = require('crypto');
 const router = require('./routes');
 const auth = require('./auth');
@@ -92,9 +93,12 @@ app.use(views(path.resolve(__dirname, '../templates'), {
   extension: 'pug',
   options: {
     helpers: {
-      gravatar: email => {
+      gravatar: function (email) {
         var hash = crypto.createHash('md5').update(email).digest('hex');
         return `https://www.gravatar.com/avatar/${hash}.jpg?s=300`;
+      },
+      momentFrom: function (date) {
+        return moment(date).fromNow();
       }
     }
   }

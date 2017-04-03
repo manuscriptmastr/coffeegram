@@ -8,4 +8,4 @@ div.container.px-0.mb-5
         br
         = val.description
         br
-        small= val.createdAt
+        small= helpers.momentFrom(val.createdAt)

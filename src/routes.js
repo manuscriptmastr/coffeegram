@@ -51,17 +51,18 @@ router.post('/users/:username', async ctx => {
     throw new NotFound();
   }
   if (user.id !== ctx.state.currentUser.id) {
-    ctx.request.flash('error', 'You\'re not allowed to edit someone else\'s profile');
+    ctx.request.flash('error', "You\'re not allowed to edit someone else\'s profile");
     return ctx.redirect('back');
   }
+
   var { bio } = ctx.request.body;
+  clean(bio);
   if (isBlank(bio)) {
-    ctx.request.flash('error', 'Your bio looks empty!');
+    ctx.request.flash('error', "Your bio looks empty!");
     return ctx.redirect('back');
   }
-  var id = user.id;
-  clean(bio);
-  await User.findByIdAndUpdate({ _id: id }, { $set: { bio }});
+
+  await User.findByIdAndUpdate({ _id: user.id }, { $set: { bio }});
   ctx.redirect(`/users/${user.username}`);
 });
 

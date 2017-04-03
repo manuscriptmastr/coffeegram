@@ -19,6 +19,6 @@ block content
                 input(class="form-control" type= "text" name="bio" placeholder="Why don't you introduce yourself quickly?" autofocus)
               button(type="submit" class="btn btn-primary") Post your bio
         li
-          small Member since #{user.createdAt}
+          small Joined #{helpers.momentFrom(user.createdAt)}
 
   include feed.pug
