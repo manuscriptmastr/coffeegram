@@ -24,12 +24,6 @@ router.get('/users/:username', async ctx => {
   });
 });
 
-router.get('/about', async ctx => {
-  await ctx.render('about', {
-
-  });
-});
-
 router.get('/coffeegrams/new', async ctx => {
   await ctx.render('new', {
 

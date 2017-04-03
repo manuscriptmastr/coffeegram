@@ -1,22 +1,25 @@
 extends layout.pug
 
 block content
-  h1 New coffeegram
+  div.text-center
+    h1 Share your new opus with the world
+    h2.lead And make up for all those awkward stares you just got
 
-  form(action="/coffeegrams" method="post" enctype="multipart/form-data")
-    div(class="form-group")
-      label(for="image") Upload your coffeegram
-      input(class="form-control" name="image" type="file" accept="image/jpeg" required)
-    div(class="form-group")
-      label(for="description") Describe your coffeegram
-      textarea(class="form-control" name="description" placeholder="Latte ipsum dolor sit awhile" autofocus)
-    div(class="form-group")
-      label(for="coffee-type") Coffee Type
-      select(class="form-control" name="coffee-type")
-        option Cappuccino
-        option Cortado
-        option Espresso
-        option Flat White
-        option Latte
-        option Macchiato
-    button(type="submit" class="btn btn-primary") Submit
+  div.p-0.mb-5
+    form(action="/coffeegrams" method="post" enctype="multipart/form-data")
+      div(class="form-group")
+        label(for="image") Upload your coffeegram
+        input(class="form-control" name="image" type="file" accept="image/jpeg" required)
+      div(class="form-group")
+        label(for="description") Describe your coffeegram
+        textarea(class="form-control" name="description" placeholder="Latte ipsum dolor sit awhile" autofocus)
+      div(class="form-group")
+        label(for="coffee-type") Coffee Type
+        select(class="form-control" name="coffee-type")
+          option Cappuccino
+          option Cortado
+          option Espresso
+          option Flat White
+          option Latte
+          option Macchiato
+      button(type="submit" class="btn btn-primary") Submit

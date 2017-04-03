@@ -6,11 +6,11 @@ html(lang="en")
     block scripts
       link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css")
 
-  body(class="container")
-    
-    h1 404: We couldn't find the page you are looking for.
-    h2 Maybe some caffeine would help?
-    if (currentUser)
-      a.btn.btn-default(href=`/users/${currentUser.username}` role="button") Go back to my Coffeegrams
-    else
-      a.btn.btn-default(href="/sessions/new" role="button") Login
+  body.container.px-0.my-5
+    div.text-center
+      h1 404: We couldn't find the page you are looking for.
+      h2.lead Maybe some caffeine would help?
+      if (currentUser)
+        a.btn.btn-primary(href=`/users/${currentUser.username}` role="button") Go back to my Coffeegrams
+      else
+        a.btn.btn-primary(href="/sessions/new" role="button") Login
