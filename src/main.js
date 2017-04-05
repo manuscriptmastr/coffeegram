@@ -49,6 +49,8 @@ var form = new formidable.IncomingForm({
   keepExtensions: true
 });
 
+app.use(mount('/assets', serve(path.resolve(__dirname, '../assets'))));
+
 app.use(mount('/uploads', serve(UPLOAD_DIR)));
 
 app.use(convert(bodyParser({
@@ -93,11 +95,11 @@ app.use(views(path.resolve(__dirname, '../templates'), {
   extension: 'pug',
   options: {
     helpers: {
-      gravatar: function (email) {
+      gravatar: email => {
         var hash = crypto.createHash('md5').update(email).digest('hex');
         return `https://www.gravatar.com/avatar/${hash}.jpg?s=300`;
       },
-      momentFrom: function (date) {
+      momentFrom: date => {
         return moment(date).fromNow();
       }
     }
