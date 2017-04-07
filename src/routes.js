@@ -37,7 +37,8 @@ router.post('/coffeegrams', async ctx => {
     userId: ctx.state.currentUser.id,
     image: path.basename(form.image[0].path),
     description: form['description'],
-    coffeeType: form['coffee-type']
+    type: form['type'],
+    shop: form['shop']
   });
 
   ctx.request.flash('success', "Your new Coffeegram is up!");
