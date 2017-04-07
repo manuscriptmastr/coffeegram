@@ -20,13 +20,13 @@ block content
     form(action="/users" method="post")
 
       +form-field('name', 'Name', errors)
-        input(class="form-control" name="name" placeholder="John Doe" pattern="[A-Za-z\\s]+" autofocus required)
+        input(class="form-control" name="name" value=(userParams ? userParams.name : "") placeholder="John Doe" pattern="[A-Za-z\\s]+" autofocus required)
 
       +form-field('email', 'Email', errors)
-        input(class="form-control" name="email" type="email" placeholder="john.doe@domain.com" required)
+        input(class="form-control" name="email" value=(userParams ? userParams.email : "") type="email" placeholder="john.doe@domain.com" required)
 
       +form-field('username', 'Username', errors)
-        input(class="form-control" name="username" placeholder="macchiato_man" pattern="\\w+" required)
+        input(class="form-control" name="username" value=(userParams ? userParams.username : "") placeholder="macchiato_man" pattern="\\w+" required)
 
       +form-field('passwordFirst', 'Password', errors)
         input(class="form-control" name="passwordFirst" type="password" placeholder="yourpassword" required)
