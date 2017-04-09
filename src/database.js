@@ -21,7 +21,8 @@ var CoffeegramSchema = new Schema({
   userId: Schema.Types.ObjectId,
   image: String,
   description: String,
-  coffeeType: String
+  type: String,
+  shop: String
 }, { timestamps: true });
 
 var Coffeegram = mongoose.model('Coffeegram', CoffeegramSchema);
