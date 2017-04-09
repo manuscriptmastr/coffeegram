@@ -47,7 +47,7 @@ auth.post('/users', async ctx => {
   var errors = validate(userParams);
 
   if (Object.keys(errors).length) {
-    return await ctx.render('signup', ({ errors }));
+    return await ctx.render('signup', ({ errors, userParams }));
   }
 
   var hash = await bcrypt.hash(passwordFirst, saltRounds);
@@ -62,7 +62,7 @@ auth.post('/users', async ctx => {
     success = true;
   } catch (error) {
     if (error.name === 'MongoError' && error.code === 11000) {
-      await ctx.render('signup', { error: "Your username or email has already been used" });
+      await ctx.render('signup', { error: "Your username or email has already been used", userParams });
     } else {
       throw error;
     }
