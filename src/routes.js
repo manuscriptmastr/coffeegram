@@ -46,6 +46,16 @@ router.post('/coffeegrams', async ctx => {
   ctx.redirect(`/users/${ctx.state.currentUser.username}`);
 });
 
+router.get('/coffeegrams/:id', async ctx => {
+  var coffeegram = await Coffeegram.findById(ctx.params.id);
+  if(!coffeegram) {
+    throw new NotFound();
+  }
+  await ctx.render('edit', {
+    coffeegram
+  });
+});
+
 router.post('/users/:username', async ctx => {
   var user = await User.findOne({ username: ctx.params.username });
   if (!user) {

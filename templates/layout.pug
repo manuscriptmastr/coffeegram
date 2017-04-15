@@ -12,10 +12,10 @@ html(lang="en")
         li.nav-item
           a.nav-link.active(href="/coffeegrams/new") Upload
         if currentUser
-          form.form-inline.ml-auto
-            input.form-control(type="text" placeholder="Search")
-            button.btn.btn-primary(type="submit")
-              i.fa.fa-search
+          //- form.form-inline.ml-auto
+          //-   input.form-control(type="text" placeholder="Search")
+          //-   button.btn.btn-primary(type="submit")
+          //-     i.fa.fa-search
           li.nav-item.nav-pills.ml-auto
             a.nav-link.active(href=`/users/${currentUser.username}`) Hello, #{currentUser.name}
         else
