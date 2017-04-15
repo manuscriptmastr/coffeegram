@@ -25,7 +25,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "koa": "^2.0.0-alpha.8",
-    "koa-better-body": "manuscriptmastr/koa-better-body#fix-ampersand",
+    "koa-better-body": "tunnckoCore/koa-better-body",
     "koa-convert": "^1.2.0",
     "koa-generic-session": "^1.11.5",
     "koa-generic-session-mongo": "^0.3.1",

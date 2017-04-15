@@ -2,7 +2,8 @@ div.container.px-0.mb-5
   ul.list-inline.row
     each val in coffeegrams
       li.list-unstyled.col-sm-4.mb-4
-        img.img-fluid.rounded(src=`/uploads/${val.image}`).mb-2
+        a(href=`/coffeegrams/${val.id}`)
+          img.img-fluid.rounded(src=`/uploads/${val.image}`).mb-2
         include star-rating.pug
         strong= val.type
         br
