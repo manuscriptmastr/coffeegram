@@ -1,14 +1,8 @@
-extends layout.pug
-
-block content
-  div.container.px-0.mb-5.text-center
-    img.img-fluid.rounded(src=`/uploads/${coffeegram.image}`).mb-2
-    include star-rating.pug
-    strong= coffeegram.type
-    br
-    = coffeegram.description
-    if coffeegram.shop
-      br
-      em= coffeegram.shop
-    br
-    small= helpers.momentFrom(coffeegram.createdAt)
+a.btn.btn-primary(href="#updateCoffeegram" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="updateCoffeegram")
+  i.fa.fa-pencil
+div.collapse(id="updateCoffeegram")
+  form.my-2(action=`/coffeegrams/${coffeegram.id}` method="post")
+    div(class="form-group")
+      input.mb-2(class="form-control" type= "text" name="description" placeholder="Update your description" autofocus)
+      input.mb-2(class="form-control" type= "text" name="shop" placeholder="Update the location")
+      button(type="submit" class="btn btn-primary") Update
