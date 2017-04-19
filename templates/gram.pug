@@ -13,6 +13,6 @@ block content
       em= coffeegram.shop
     br
     small= helpers.momentFrom(coffeegram.createdAt)
-    if coffeegram.userId.toString() === currentUser.id
+    if coffeegram.userId.equals(currentUser.id)
       br
       include edit.pug
