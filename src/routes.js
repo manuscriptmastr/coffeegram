@@ -61,6 +61,9 @@ router.get('/coffeegrams/:id', async ctx => {
 
 router.post('/coffeegrams/:id', async ctx => {
   var coffeegram = await Coffeegram.findById(ctx.params.id);
+  if (!coffeegram) {
+    throw new NotFound();
+  }
   if (coffeegram.userId.toString() !== ctx.state.currentUser.id) {
     ctx.request.flash('error', "You're not allowed to edit someone else's coffeegram");
     return ctx.redirect('back');
