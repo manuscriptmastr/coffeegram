@@ -3,8 +3,11 @@ const { User, Coffeegram } = require('./database');
 const { NotFound } = require('./error');
 const path = require('path');
 const { clean, isBlank } = require('underscore.string');
+const { pick, mapValues } = require('lodash');
 
 let router = Router();
+
+let hasOwnProperty = (obj, key) => Object.hasOwnProperty.call(obj, key);
 
 router.get('/', async ctx => {
   var coffeegrams = await Coffeegram.find({}).sort({ createdAt: 'desc' });
@@ -41,19 +44,39 @@ router.post('/coffeegrams', async ctx => {
     shop: form['shop']
   });
 
-  ctx.request.flash('success', "Your new Coffeegram is up!");
+  ctx.request.flash('success', "Your new Coffeegram is up");
 
   ctx.redirect(`/users/${ctx.state.currentUser.username}`);
 });
 
 router.get('/coffeegrams/:id', async ctx => {
   var coffeegram = await Coffeegram.findById(ctx.params.id);
-  if(!coffeegram) {
+  if (!coffeegram) {
     throw new NotFound();
   }
-  await ctx.render('edit', {
+  await ctx.render('gram', {
     coffeegram
   });
+});
+
+router.post('/coffeegrams/:id', async ctx => {
+  var coffeegram = await Coffeegram.findById(ctx.params.id);
+  if (!coffeegram) {
+    throw new NotFound();
+  }
+  if (!coffeegram.userId.equals(ctx.state.currentUser.id)) {
+    ctx.request.flash('error', "You're not allowed to edit someone else's coffeegram");
+    return ctx.redirect('back');
+  }
+
+  var params = pick(ctx.request.body, ['description', 'shop']);
+  params = mapValues(params, clean);
+  Object.assign(coffeegram, params);
+
+  await coffeegram.save();
+
+  ctx.request.flash('success', "Your new Coffeegram is updated");
+  ctx.redirect(`/coffeegrams/${coffeegram.id}`);
 });
 
 router.post('/users/:username', async ctx => {
@@ -66,15 +89,12 @@ router.post('/users/:username', async ctx => {
     return ctx.redirect('back');
   }
 
-  var { bio } = ctx.request.body;
-  bio = clean(bio);
-  if (isBlank(bio)) {
-    ctx.request.flash('error', "Your bio looks empty!");
-    return ctx.redirect('back');
-  }
+  var params = pick(ctx.request.body, ['bio']);
+  params = mapValues(params, clean);
+  Object.assign(user, params);
 
-  user.bio = bio;
   await user.save();
+
   ctx.redirect(`/users/${user.username}`);
 });
 

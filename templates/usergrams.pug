@@ -19,7 +19,7 @@ block content
           div.collapse(id="updateBio")
             form(action=`/users/${user.username}` method="post")
               div(class="form-group")
-                input(class="form-control" type= "text" name="bio" placeholder="Update your bio" autofocus)
+                input(class="form-control" type= "text" name="bio" value=(user.bio) placeholder="Update your bio" autofocus)
               button(type="submit" class="btn btn-primary") Update
         else if user.bio
           li
