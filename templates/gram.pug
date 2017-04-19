@@ -5,8 +5,9 @@ block content
     img.img-fluid.rounded(src=`/uploads/${coffeegram.image}`).mb-2
     include star-rating.pug
     strong= coffeegram.type
-    br
-    = coffeegram.description
+    if coffeegram.description
+      br
+      = coffeegram.description
     if coffeegram.shop
       br
       em= coffeegram.shop

@@ -3,6 +3,7 @@ const { User, Coffeegram } = require('./database');
 const { NotFound } = require('./error');
 const path = require('path');
 const { clean, isBlank } = require('underscore.string');
+const { pick, mapValues } = require('lodash');
 
 let router = Router();
 
@@ -65,14 +66,10 @@ router.post('/coffeegrams/:id', async ctx => {
     return ctx.redirect('back');
   }
 
-  var { description, shop } = ctx.request.body;
+  var params = pick(ctx.request.body, ['description', 'shop']);
+  params = mapValues(params, clean);
+  Object.assign(coffeegram, params);
 
-  if (hasOwnProperty(ctx.request.body, 'description') && !isBlank(description)) {
-    coffeegram.description = description;
-  }
-  if (hasOwnProperty(ctx.request.body, 'shop') && !isBlank(shop)) {
-    coffeegram.shop = shop;
-  }
   await coffeegram.save();
 
   ctx.request.flash('success', "Your new Coffeegram is updated");

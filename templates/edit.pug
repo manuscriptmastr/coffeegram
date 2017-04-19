@@ -3,6 +3,6 @@ a.btn.btn-primary(href="#updateCoffeegram" role="button" data-toggle="collapse" 
 div.collapse(id="updateCoffeegram")
   form.my-2(action=`/coffeegrams/${coffeegram.id}` method="post")
     div(class="form-group")
-      input.mb-2(class="form-control" type= "text" name="description" placeholder="Update your description" autofocus)
-      input.mb-2(class="form-control" type= "text" name="shop" placeholder="Update the location")
+      input.mb-2(class="form-control" type= "text" name="description" value=(coffeegram.description) placeholder="Update your description" autofocus)
+      input.mb-2(class="form-control" type= "text" name="shop" value=(coffeegram.shop) placeholder="Update the location")
       button(type="submit" class="btn btn-primary") Update
