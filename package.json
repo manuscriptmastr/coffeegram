@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/main.js --harmony-async-await",
-    "dev": "nodemon src/main.js --harmony-async-await"
+    "dev": "nodemon src/main.js --harmony-async-await",
+    "debug": "node --inspect --harmony-async-await src/main.js"
   },
   "repository": {
     "type": "git",

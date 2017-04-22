@@ -32,14 +32,10 @@ auth.post('/users', async ctx => {
     passwordConfirmation
   } = ctx.request.body;
 
-  name = clean(name);
-  email = trim(email);
-  username = trim(username);
-
   var userParams = {
-    name,
-    email,
-    username,
+    name: clean(name),
+    email: trim(email),
+    username: trim(username),
     passwordFirst,
     passwordConfirmation
   }
@@ -63,6 +59,8 @@ auth.post('/users', async ctx => {
   } catch (error) {
     if (error.name === 'MongoError' && error.code === 11000) {
       await ctx.render('signup', { error: "Your username or email has already been used", userParams });
+    } else if (error.name === 'ValidationError') {
+      await ctx.render('signup', { errors: error.errors, userParams });
     } else {
       throw error;
     }
