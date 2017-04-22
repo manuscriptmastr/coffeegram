@@ -6,7 +6,7 @@ mixin form-field(field, title, errors)
     label.form-control-label(for=field) #{title}
     block
     if error
-      div.form-control-feedback #{error}
+      div.form-control-feedback #{error.message}
 
 block content
   div.text-center
@@ -20,7 +20,7 @@ block content
     form(action="/users" method="post")
 
       +form-field('name', 'Name', errors)
-        input(class="form-control" name="name" value=(userParams ? userParams.name : "") placeholder="John Doe" pattern="[A-Za-z\\s]+" autofocus required)
+        input(class="form-control" name="name" value=(userParams ? userParams.name : "") placeholder="John Doe" autofocus required)
 
       +form-field('email', 'Email', errors)
         input(class="form-control" name="email" value=(userParams ? userParams.email : "") type="email" placeholder="john.doe@domain.com" required)
