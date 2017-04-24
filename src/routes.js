@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const { User, Coffeegram } = require('./database');
 const { NotFound } = require('./error');
 const path = require('path');
-const { clean, isBlank } = require('underscore.string');
+const { clean } = require('underscore.string');
 const { pick, mapValues } = require('lodash');
 
 let router = Router();
@@ -35,13 +35,25 @@ router.get('/coffeegrams/new', async ctx => {
 });
 
 router.post('/coffeegrams', async ctx => {
-  var form = ctx.request.body;
+  var { image, description, type, shop } = ctx.request.body;
+
+  var coffeeParams = {
+    image,
+    description: clean(description),
+    type: clean(type),
+    shop: clean(shop)
+  }
+
+  if (image[0].type !== 'image/jpeg') {
+    return await ctx.render('new', { error: "Upload your image", coffeeParams });
+  }
+
   await Coffeegram.create({
     userId: ctx.state.currentUser.id,
-    image: path.basename(form.image[0].path),
-    description: form['description'],
-    type: form['type'],
-    shop: form['shop']
+    image: path.basename(image[0].path),
+    description,
+    type,
+    shop
   });
 
   ctx.request.flash('success', "Your new Coffeegram is up");

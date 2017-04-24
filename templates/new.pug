@@ -12,7 +12,7 @@ block content
         input(class="form-control" name="image" type="file" accept="image/jpeg" required)
       div(class="form-group")
         label(for="description") Describe your coffeegram
-        textarea(class="form-control" name="description" placeholder="Latte ipsum dolor sit awhile" autofocus)
+        textarea(class="form-control" name="description" placeholder="Latte ipsum dolor sit awhile" autofocus) #{coffeeParams ? coffeeParams.description : ""}
       div(class="form-group")
         label(for="type") How would you classify your coffee?
         select(class="form-control" name="type")
@@ -24,5 +24,5 @@ block content
           option Macchiato
       div(class="form-group")
         label(for="shop") Where did you capture this masterpiece?
-        input(class="form-control" name="shop" type="text" placeholder="Soul Caffeine")
+        input(class="form-control" name="shop" type="text" value=(coffeeParams ? coffeeParams.shop : "") placeholder="Soul Caffeine")
       button(type="submit" class="btn btn-primary") Submit
