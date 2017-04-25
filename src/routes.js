@@ -2,8 +2,9 @@ const Router = require('koa-router');
 const { User, Coffeegram } = require('./database');
 const { NotFound } = require('./error');
 const path = require('path');
-const { clean, isBlank } = require('underscore.string');
+const { clean } = require('underscore.string');
 const { pick, mapValues } = require('lodash');
+const { validateImage } = require('./validation');
 
 let router = Router();
 
@@ -35,18 +36,46 @@ router.get('/coffeegrams/new', async ctx => {
 });
 
 router.post('/coffeegrams', async ctx => {
-  var form = ctx.request.body;
-  await Coffeegram.create({
-    userId: ctx.state.currentUser.id,
-    image: path.basename(form.image[0].path),
-    description: form['description'],
-    type: form['type'],
-    shop: form['shop']
-  });
+  var { image, description, type, shop } = ctx.request.body;
 
-  ctx.request.flash('success', "Your new Coffeegram is up");
+  description = clean(description);
+  type = clean(type);
+  shop = clean(shop);
 
-  ctx.redirect(`/users/${ctx.state.currentUser.username}`);
+  var coffeeParams = {
+    image,
+    description,
+    type,
+    shop
+  }
+
+  var errors = validateImage(coffeeParams);
+
+  if (Object.keys(errors).length) {
+    return await ctx.render('new', ({ errors, coffeeParams }));
+  }
+
+  var success = false;
+  try {
+    await Coffeegram.create({
+      userId: ctx.state.currentUser.id,
+      image: path.basename(image[0].path),
+      description,
+      type,
+      shop
+    });
+    success = true;
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      await ctx.render('new', { errors: error.errors, coffeeParams });
+    } else {
+      throw error;
+    }
+  }
+  if (success) {
+    ctx.request.flash('success', "Your new Coffeegram is up");
+    ctx.redirect(`/users/${ctx.state.currentUser.username}`);
+  }
 });
 
 router.get('/coffeegrams/:id', async ctx => {
