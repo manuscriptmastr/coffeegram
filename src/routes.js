@@ -38,11 +38,15 @@ router.get('/coffeegrams/new', async ctx => {
 router.post('/coffeegrams', async ctx => {
   var { image, description, type, shop } = ctx.request.body;
 
+  description = clean(description);
+  type = clean(type);
+  shop = clean(shop);
+
   var coffeeParams = {
     image,
-    description: clean(description),
-    type: clean(type),
-    shop: clean(shop)
+    description,
+    type,
+    shop
   }
 
   var errors = validateImage(coffeeParams);

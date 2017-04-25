@@ -32,10 +32,14 @@ auth.post('/users', async ctx => {
     passwordConfirmation
   } = ctx.request.body;
 
+  name = clean(name);
+  email = trim(email);
+  username = trim(username);
+
   var userParams = {
-    name: clean(name),
-    email: trim(email),
-    username: trim(username),
+    name,
+    email,
+    username,
     passwordFirst,
     passwordConfirmation
   }
