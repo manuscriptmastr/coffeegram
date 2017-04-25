@@ -4,7 +4,7 @@ const passport = require('koa-passport');
 const bcrypt = require('bcryptjs');
 const pug = require('pug');
 const { trim, clean } = require('underscore.string');
-const validate = require('./validation');
+const { validatePassword } = require('./validation');
 
 let auth = Router();
 
@@ -40,7 +40,7 @@ auth.post('/users', async ctx => {
     passwordConfirmation
   }
 
-  var errors = validate(userParams);
+  var errors = validatePassword(userParams);
 
   if (Object.keys(errors).length) {
     return await ctx.render('signup', ({ errors, userParams }));

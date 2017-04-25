@@ -4,6 +4,7 @@ const { NotFound } = require('./error');
 const path = require('path');
 const { clean } = require('underscore.string');
 const { pick, mapValues } = require('lodash');
+const { validateImage } = require('./validation');
 
 let router = Router();
 
@@ -44,8 +45,10 @@ router.post('/coffeegrams', async ctx => {
     shop: clean(shop)
   }
 
-  if (image[0].type !== 'image/jpeg') {
-    return await ctx.render('new', { error: "Upload your image", coffeeParams });
+  var errors = validateImage(coffeeParams);
+
+  if (Object.keys(errors).length) {
+    return await ctx.render('new', ({ errors, coffeeParams }));
   }
 
   await Coffeegram.create({
@@ -57,7 +60,6 @@ router.post('/coffeegrams', async ctx => {
   });
 
   ctx.request.flash('success', "Your new Coffeegram is up");
-
   ctx.redirect(`/users/${ctx.state.currentUser.username}`);
 });
 

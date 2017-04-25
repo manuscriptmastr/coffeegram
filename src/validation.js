@@ -1,6 +1,7 @@
-const { isBlank } = require('underscore.string');
+const isEmpty = v => v === 0;
+const isJpeg = v => v === 'image/jpeg';
 
-const validate = ({name, email, username, passwordFirst, passwordConfirmation}) => {
+const validatePassword = ({ passwordFirst, passwordConfirmation }) => {
   var errors = {};
   if (isBlank(passwordConfirmation)) {
     errors.passwordConfirmation = { message: 'Confirm your password' };
@@ -10,4 +11,17 @@ const validate = ({name, email, username, passwordFirst, passwordConfirmation}) 
   return errors;
 }
 
-module.exports = validate;
+const validateImage = ({ image }) => {
+  var errors = {};
+  if (isEmpty(image[0].size)) {
+    errors.image = { message: 'No image detected' };
+  } else if (!isJpeg(image[0].type)){
+    errors.image = { message: 'Image must be JPEG' };
+  }
+  return errors;
+}
+
+module.exports = {
+  validatePassword,
+  validateImage
+};
