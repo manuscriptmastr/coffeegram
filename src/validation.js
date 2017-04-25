@@ -1,5 +1,10 @@
+const { isBlank } = require('underscore.string');
+
 const validatePassword = ({ passwordFirst, passwordConfirmation }) => {
   var errors = {};
+  if (isBlank(passwordFirst)) {
+    errors.passwordFirst = { message: 'A password is required'};
+  }
   if (isBlank(passwordConfirmation)) {
     errors.passwordConfirmation = { message: 'Confirm your password' };
   } else if (passwordFirst!==passwordConfirmation) {
