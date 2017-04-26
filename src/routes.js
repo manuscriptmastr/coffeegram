@@ -55,7 +55,6 @@ router.post('/coffeegrams', async ctx => {
     return await ctx.render('new', ({ errors, coffeeParams }));
   }
 
-  var success = false;
   try {
     await Coffeegram.create({
       userId: ctx.state.currentUser.id,
@@ -64,18 +63,16 @@ router.post('/coffeegrams', async ctx => {
       type,
       shop
     });
-    success = true;
   } catch (error) {
     if (error.name === "ValidationError") {
-      await ctx.render('new', { errors: error.errors, coffeeParams });
+      return await ctx.render('new', { errors: error.errors, coffeeParams });
     } else {
       throw error;
     }
   }
-  if (success) {
-    ctx.request.flash('success', "Your new Coffeegram is up");
-    ctx.redirect(`/users/${ctx.state.currentUser.username}`);
-  }
+
+  ctx.request.flash('success', "Your new Coffeegram is up");
+  ctx.redirect(`/users/${ctx.state.currentUser.username}`);
 });
 
 router.get('/coffeegrams/:id', async ctx => {
