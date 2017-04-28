@@ -98,7 +98,7 @@ router.post('/coffeegrams/:id', async ctx => {
     return ctx.redirect('back');
   }
 
-  var params = pick(ctx.request.body, ['description', 'shop']);
+  var params = pick(ctx.request.body, ['description', 'type', 'shop']);
   params = mapValues(params, clean);
   Object.assign(coffeegram, params);
 
