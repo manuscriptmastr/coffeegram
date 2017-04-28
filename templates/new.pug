@@ -24,12 +24,9 @@ block content
 
       +form-field('type', 'Classify your coffee', errors)
         select(class="form-control" name="type")
-          option Cappuccino
-          option Cortado
-          option Espresso
-          option Flat White
-          option Latte
-          option Macchiato
+          - var coffeeTypes = ["Cappuccino", "Cortado", "Espresso", "Flat White", "Latte", "Macchiato"];
+          each type in coffeeTypes
+            option(selected=(coffeeParams && coffeeParams.type === type)) #{type}
 
       +form-field('shop', 'Location', errors)
         input(class="form-control" name="shop" type="text" value=(coffeeParams ? coffeeParams.shop : "") placeholder="Soul Caffeine")
