@@ -51,7 +51,6 @@ auth.post('/users', async ctx => {
   }
 
   var hash = await bcrypt.hash(passwordFirst, saltRounds);
-  var success = false;
   try {
     var user = await User.create({
       name,
@@ -59,21 +58,19 @@ auth.post('/users', async ctx => {
       username,
       password: hash
     });
-    success = true;
   } catch (error) {
     if (error.name === 'MongoError' && error.code === 11000) {
-      await ctx.render('signup', { error: "Your username or email has already been used", userParams });
+      return await ctx.render('signup', { error: "Your username or email has already been used", userParams });
     } else if (error.name === 'ValidationError') {
-      await ctx.render('signup', { errors: error.errors, userParams });
+      return await ctx.render('signup', { errors: error.errors, userParams });
     } else {
       throw error;
     }
   }
-  if (success) {
-    ctx.login(user);
-    ctx.request.flash('success', "Welcome to Coffeegrams, " + user.name);
-    ctx.redirect('/');
-  }
+
+  ctx.login(user);
+  ctx.request.flash('success', "Welcome to Coffeegrams, " + user.name);
+  ctx.redirect('/');
 });
 
 module.exports = auth;
