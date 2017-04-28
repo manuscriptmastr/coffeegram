@@ -24,7 +24,7 @@ block content
 
       +form-field('type', 'Classify your coffee', errors)
         select.form-control(name="type")
-          - var coffeeTypes = ["Cappuccino", "Cortado", "Espresso", "Flat White", "Latte", "Macchiato"];
+          - var coffeeTypes = ["Cappuccino", "Cortado", "Espresso", "Flat White", "Latte", "Macchiato", "Other"];
           each type in coffeeTypes
             option(selected=(coffeeParams && coffeeParams.type === type)) #{type}
 
