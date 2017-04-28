@@ -17,18 +17,18 @@ block content
     form(action="/coffeegrams" method="post" enctype="multipart/form-data")
 
       +form-field('image', 'Upload your coffeegram', errors)
-        input(class="form-control" name="image" type="file" accept="image/jpeg" required)
+        input.form-control(name="image" type="file" accept="image/jpeg" required)
       
       +form-field('description', 'Describe your coffeegram', errors)
-        textarea(class="form-control" name="description" placeholder="Latte ipsum dolor sit awhile" autofocus) #{coffeeParams ? coffeeParams.description : ""}
+        textarea.form-control(name="description" placeholder="Latte ipsum dolor sit awhile" autofocus) #{coffeeParams ? coffeeParams.description : ""}
 
       +form-field('type', 'Classify your coffee', errors)
-        select(class="form-control" name="type")
+        select.form-control(name="type")
           - var coffeeTypes = ["Cappuccino", "Cortado", "Espresso", "Flat White", "Latte", "Macchiato"];
           each type in coffeeTypes
             option(selected=(coffeeParams && coffeeParams.type === type)) #{type}
 
       +form-field('shop', 'Location', errors)
-        input(class="form-control" name="shop" type="text" value=(coffeeParams ? coffeeParams.shop : "") placeholder="Soul Caffeine")
+        input.form-control(name="shop" type="text" value=(coffeeParams ? coffeeParams.shop : "") placeholder="Soul Caffeine")
       
-      button(type="submit" class="btn btn-primary") Submit
+      button.btn.btn-primary(type="submit") Submit
