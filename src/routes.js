@@ -72,7 +72,17 @@ router.post('/coffeegrams', async ctx => {
   }
 
   ctx.request.flash('success', "Your new Coffeegram is up");
-  ctx.redirect(`/users/${ctx.state.currentUser.username}`);
+  var redirectUrl = `/users/${ctx.state.currentUser.username}`;
+  switch(ctx.request.accepts(['html', 'json'])) {
+    case 'html': {
+      ctx.redirect(redirectUrl);
+      break;
+    }
+    case 'json': {
+      ctx.body = { next: redirectUrl };
+      break;
+    }
+  }
 });
 
 router.get('/coffeegrams/:id', async ctx => {
