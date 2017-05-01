@@ -3,7 +3,7 @@ extends layout.pug
 block content
   div.container.px-0.mb-5.text-center
     img.img-fluid.rounded(src=`/uploads/${coffeegram.image}`).mb-2
-    include star-rating.pug
+    br
     strong= coffeegram.type
     if coffeegram.description
       br

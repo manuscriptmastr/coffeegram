@@ -1,2 +1,2 @@
 # coffeegram
-Users can view, submit, and rate latte art!
+Users can share and view latte art.
